@@ -1,0 +1,45 @@
+version: "3.6"
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+        - "8080:80"
+    volumes:
+        - ./www:/var/www
+        - ./config/docker/web/site.conf:/etc/nginx/conf.d/site.conf
+        - ./log:/var/log/nginx
+    depends_on: 
+        - php
+    networks:
+      frontend:
+        ipv4_address: 10.10.68.2
+      default:
+  
+  mongodb:
+    image: mongo:latest
+    volumes:
+        - ./db:/data/db
+    networks:
+      default:
+  php:
+    build: ./config/docker/php
+    volumes:
+        - ./www:/var/www
+    depends_on:
+        - composer
+        - mongodb
+
+  composer:
+    image: composer:latest
+    command: ["composer", "install"]
+    volumes:
+        - ./www:/app
+
+networks:
+    frontend:
+      internal: false
+      ipam:
+       config:
+         - subnet: 10.10.68.0/24
+    default:
