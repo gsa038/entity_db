@@ -15,7 +15,6 @@ services:
       frontend:
         ipv4_address: 10.10.68.2
       default:
-  
   mongodb:
     image: mongo:latest
     volumes:
@@ -29,7 +28,8 @@ services:
     depends_on:
         - composer
         - mongodb
-
+    environment: 
+      - MONGO_URL=mongodb://mongodb:27017
   composer:
     image: composer:latest
     command: ["composer", "install"]

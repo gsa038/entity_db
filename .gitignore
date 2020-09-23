@@ -1,3 +1,4 @@
 db/*
 log/*
 www/vendor
+www/composer.lock
