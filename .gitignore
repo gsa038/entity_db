@@ -1,4 +1,8 @@
-db/*
+#Application
+data/*
 log/*
 www/vendor
 www/composer.lock
+
+# VSCode
+.vscode/
