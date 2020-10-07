@@ -1,0 +1,39 @@
+{
+    "name": "gsa038/entities",
+    "description": "Pet project shows working fullstack API (slim-based) app with simple frontend panel(react-based) ",
+    "homepage": "http://github.com/gsa038/entity_db",
+    "license": "MIT",
+    "authors": {
+        "name": "Stanislav Gnoyanko",
+        "email": "gsa038@ya.ru"
+    },
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "monolog/monolog": "^2.1",
+        "php-di/php-di": "^6.2",
+        "slim/psr7": "^1.1",
+        "slim/slim": "^4.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Entities\\": "src/"
+        }
+    },
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8080 -t public",
+        "test": "phpunit"
+    }
+}

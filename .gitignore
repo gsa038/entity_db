@@ -1,8 +1,12 @@
+# Global
+.*.swp
+.DS_Store
+
 #Application
 data/*
 log/*
-www/vendor
-www/composer.lock
+web/vendor
+web/composer.lock
 
 # VSCode
 .vscode/
