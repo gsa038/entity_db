@@ -24,7 +24,7 @@ help:
 	@echo "  test                Test application"
 
 init:
-	@$(shell cp -n $(shell pwd)/web/app/composer.json.dist $(shell pwd)/web/app/composer.json 2> /dev/null)
+	@$(shell cp -n $(shell pwd)/web/entities-db-back/app/composer.json.dist $(shell pwd)/web/entities-db-back/app/composer.json 2> /dev/null)
 
 apidoc:
 	@docker run --rm -v $(shell pwd):/data phpdoc/phpdoc -i=vendor/ -d /data/web/app/src -t /data/web/app/doc
@@ -33,10 +33,12 @@ apidoc:
 clean:
 	@rm -Rf data/db/mysql/*
 	@rm -Rf $(MYSQL_DUMPS_DIR)/*
-	@rm -Rf web/app/vendor
-	@rm -Rf web/app/composer.lock
-	@rm -Rf web/app/doc
-	@rm -Rf web/app/report
+	@rm -Rf www
+	@rm -Rf web_back/vendor
+	@rm -Rf web_back/composer.lock
+	@rm -Rf web_back/doc
+	@rm -Rf web_back/report
+	@rm -Rf logs/*
 	@rm -Rf etc/ssl/*
 
 code-sniff:
