@@ -4,6 +4,11 @@ declare(strict_types=1);
 use DI\ContainerBuilder;
 use Monolog\Logger;
 
+const MYSQL_HOST = 'mysql';
+const MYSQL_DATABASE = 'entities';
+const MYSQL_ROOT_USER = 'root';
+const MYSQL_ROOT_PASSWORD = 'Hjvfirf55';
+
 return function (ContainerBuilder $containerBuilder) {
     // Global Settings Object
     $containerBuilder->addDefinitions([
