@@ -24,7 +24,9 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/db-helper/Dfcbktr55', '\App\Controller\DBController:dbInit');
+    $app->get('/db-helper/create/Dfcbktr55', '\App\Controller\DBController:dbInit');
+    // $app->get('/db-helper/fill-demo/Dfcbktr55', '\App\Controller\DBController:dbFill');
+    $app->get('/db-helper/drop/Dfcbktr55', '\App\Controller\DBController:dbDrop');
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);
