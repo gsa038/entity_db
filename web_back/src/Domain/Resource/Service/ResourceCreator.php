@@ -2,14 +2,14 @@
 
 namespace App\Domain\Resource\Service;
 
-use App\Domain\Resource\ResourceCreatorRepository;
+use App\Domain\Resource\ResourceRepository;
 use App\Exception\ValidationException;
 
 final class ResourceCreator
 {
     private $repository;
 
-    public function __construct(ResourceCreatorRepository $repository)
+    public function __construct(ResourceRepository $repository)
     {
         $this->repository = $repository;
     }

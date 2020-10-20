@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Domain\User;
+namespace Tests\Domain\Entity;
 
-use App\Domain\User\User;
+use App\Domain\Entity\Entity;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -28,7 +28,7 @@ class UserTest extends TestCase
      */
     public function testGetters(int $id, string $username, string $firstName, string $lastName)
     {
-        $user = new User($id, $username, $firstName, $lastName);
+        $user = new Entity($id, $username, $firstName, $lastName);
 
         $this->assertEquals($id, $user->getId());
         $this->assertEquals($username, $user->getUsername());

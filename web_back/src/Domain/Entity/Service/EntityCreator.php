@@ -2,19 +2,20 @@
 
 namespace App\Domain\Entity\Service;
 
-use App\Domain\Entity\EntityCreatorRepository;
+use App\Domain\Entity\Entity;
+use App\Domain\Entity\EntityRepository;
 use App\Exception\ValidationException;
 
 final class UserCreator
 {
     private $repository;
 
-    public function __construct(EntityCreatorRepository $repository)
+    public function __construct(EntityRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function createEntity(array $data): int
+    public function createEntity(Entity $data): int
     {
         $this->validateNewEntity($data);
 
@@ -25,7 +26,7 @@ final class UserCreator
         return $userId;
     }
 
-    private function validateNewEntity(array $data): void
+    private function validateNewEntity(Entity $data): void
     {
         $errors = [];
 

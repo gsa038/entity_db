@@ -5,7 +5,7 @@ namespace App\Domain\Resource;
 
 use PDO;
 
-class ResourceCreatorRepository
+class ResourceRepository
 {
     private $connection;
 
