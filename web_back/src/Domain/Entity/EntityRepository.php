@@ -12,10 +12,10 @@ class EntityRepository
 
     public function __construct(PDO $connection)
     {
-        $this->$connection = $connection;
+        $this->connection = $connection;
     }
 
-    public function insertEntity(Entity $entity): int
+    public function insertEntity(Entity $entity)
     {
         $raw = [
             'entityName' => $entity['name']
@@ -23,12 +23,12 @@ class EntityRepository
 
         $sql = "INSERT INTO entity SET name=:entityName RETURN id;";
 
-        return $this->connection->prepare($sql)->execution($raw);
+        return $this->connection->prepare($sql)->execute($raw);
 
         // return (int)$this->connection->lastInsertId();
     }
 
-    public function getEntityIdbyEntityName(string $entityName): int
+    public function getEntityIdbyEntityName(string $entityName)
     {
         $raw = [
             'entityName' => $entityName
@@ -36,6 +36,6 @@ class EntityRepository
 
         $sql = "SELECT FROM entity where name=:entityName;";
 
-        return $this->connection->prepare($sql)->execution($raw);
+        return $this->connection->prepare($sql)->execute($raw);
     }
 }

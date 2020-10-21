@@ -11,7 +11,7 @@ class ResourceRepository
 
     public function __construct(PDO $connection)
     {
-        $this->$connection = $connection;
+        $this->connection = $connection;
     }
 
     public function insertResource(array $resource): int
@@ -29,7 +29,7 @@ class ResourceRepository
                 value=:value,
                 value_name=:value_name;";
 
-        $this->connection->prepare($sql)->execution($raw);
+        $this->connection->prepare($sql)->execute($raw);
 
         return (int)$this->connection->lastInsertId();
     }
