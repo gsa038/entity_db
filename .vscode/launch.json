@@ -10,7 +10,7 @@
             "request": "launch",
             "port": 9005,
             "pathMappings": {
-                "/var/www": "${workspaceFolder}/web_back"
+                "/var/www": "${workspaceFolder}/web"
             },
             "ignore": [
                 "**/vendor/**/*.php"

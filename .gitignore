@@ -9,4 +9,4 @@ web/vendor
 web/composer.lock
 
 # VSCode
-# .vscode/
+.vscode/

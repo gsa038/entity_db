@@ -1,1 +1,1 @@
-Entities demo
+Entity db
