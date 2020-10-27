@@ -4,7 +4,7 @@
 
 #Application
 data/*
-log/*
+logs/*
 web/vendor
 web/composer.lock
 

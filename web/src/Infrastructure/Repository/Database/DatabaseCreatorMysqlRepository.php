@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Repository\Database;
 
-use App\Domain\Entity\DatabaseCreatorRepository;
+use App\Domain\Database\DatabaseCreatorRepository;
 use PDO;
 
 class DatabaseCreatorMysqlRepository implements DatabaseCreatorRepository
@@ -67,4 +67,17 @@ class DatabaseCreatorMysqlRepository implements DatabaseCreatorRepository
 
       $this->connection->prepare($raw)->execute($sql);
     }
+
+    public function isDatabaseExists(string $databaseName)
+    {
+      $raw = [
+        'databaseName' => $databaseName,
+      ];
+      $sql = "SELECT DATABASE() where DATABASE():=databaseName;";
+
+      $this->connection->prepare($raw)->execute($sql);
+      return false;
+    }
+
+
 }

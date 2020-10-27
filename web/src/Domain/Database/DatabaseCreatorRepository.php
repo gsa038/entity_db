@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Domain\Entity;
+namespace App\Domain\Database;
 
-use App\Domain\Entity\Entity;
+use App\Domain\Database\Database;
 use PDO;
 
 
