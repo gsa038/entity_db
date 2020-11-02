@@ -1,41 +1,32 @@
 <?php
 
-namespace App\Actions\Entity\Service;
+namespace App\Application\Actions\Entity;
 
-use App\Domain\Entity\Entity;
-use App\Domain\Entity\EntityRepository;
-use App\Exception\ValidationException;
+use Psr\Http\Message\ResponseInterface as Response;
 
-final class EntityCreator
+class EntityCreateAction extends EntityAction
 {
-    private $repository;
-
-    public function __construct(EntityRepository $repository)
+    /**
+     * {@inheritdoc}
+     */
+    protected function action(): Response
     {
-        $this->repository = $repository;
-    }
-
-    public function createEntity(Entity $data): int
-    {
-        $this->validateNewEntity($data);
-
-        $userId = $this->repository->insertEntity($data);
-
-        $this->logger->info(sprintf('User created successfully: %s', $userId));
-
-        return $userId;
-    }
-
-    private function validateNewEntity(Entity $data): void
-    {
-        $errors = [];
-
-        if (empty($data['entityName'])) {
-            $errors['entityName'] = 'Input required';
+        $name = json_decode($this->request->getBody())['entity']['name'];
+        $id = $this->entityRepository->insertEntity($name);
+        if (!$id) {
+            $message = "User $name was not created.";
+            $statusCode = 500;
         }
-
-        if ($errors) {
-            throw new ValidationException('Please check your input', $errors);
+        else {
+            $message = "User $name was created with id $id.";
+            $statusCode = 200;
         }
+        $this->logger->info($message);
+        $response = [
+            'statusCode' => $statusCode,
+            'message' => $message
+        ];
+
+        return $this->respondWithData($response);
     }
 }

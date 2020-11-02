@@ -5,7 +5,7 @@ services:
     container_name: web
     image: nginx:latest
     volumes:
-      - ./web_back:/var/www
+      - ./web:/var/www
       - ./config/docker/web/site.conf:/etc/nginx/conf.d/site.conf.template
       - ./logs:/var/log/nginx
     ports:
@@ -38,14 +38,14 @@ services:
   php:
     build: ./config/docker/php
     volumes:
-        - ./web_back:/var/www
+        - ./web:/var/www
         - ./config/docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     restart: always
   composer:
     image: composer:latest
     command: install
     volumes:
-        - ./web_back:/app
+        - ./web:/app
   myadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin

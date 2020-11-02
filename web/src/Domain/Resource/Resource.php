@@ -5,46 +5,64 @@ namespace App\Domain\Resource;
 
 use JsonSerializable;
 
-class Resource
+class Resource implements JsonSerializable
 {
+    /**
+     * @var int
+     */
     private int $entityId;
 
-    private string $resourceName;
+    /**
+     * @var string
+     */
+    private string $name;
 
-    private string $resourceValue;
-    
-    private string $resourceValueName;
+    /**
+     * @var int
+     */
+    private int $value;
 
-    public function __construct(int $entityId, string $resourceName, string $resourceValue, string $resourceValueName)
+    /**
+     * @var string
+     */
+    private string $valueName;
+
+    /**
+     * @param int       $entityId
+     * @param string    $name
+     * @param int       $value
+     * @param string    $valueName
+     */
+    public function __construct(int $entityId, string $name, int $value, string $valueName)
     {
         $this->entityId = $entityId;
-        $this->resourceName = strtolower($resourceName);
-        $this->resourceValue = strtolower($resourceValue);
-        $this->resourceValueName = strtolower($resourceValueName);
+        $this->name = strtolower($name);
+        $this->value = strtolower($value);
+        $this->valueName = strtolower($valueName);
     }
 
-    public function getResourceName(): string
+    public function getName(): string
     {
-        return $this->resourceName;
+        return $this->name;
     }
 
-    public function getResourceValue(): string
+    public function getValue(): int
     {
-        return $this->resourceValue;
+        return $this->value;
     }
 
-    public function getResourceValueName(): string
+    public function getValueName(): string
     {
-        return $this->resourceValueName;
+        return $this->valueName;
     }
 
     public function jsonSerialize()
     {
         return [
             'entity_id' => $this->entityId,
-            'resource_name' => $this->resourceName,
-            'value' => $this->resourceValue,
-            'value_name' => $this->resourceValueName
+            'name' => $this->name,
+            'value' => $this->value,
+            'value_name' => $this->valueName
         ];
     }
 }

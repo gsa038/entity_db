@@ -11,8 +11,8 @@ return function (ContainerBuilder $containerBuilder) {
             'displayErrorDetails' => true, // Should be set to false in production
             'db' => [
                 'driver' => 'mysql',
-                'host' => 'mysql',
-                'dbname' => 'entities',
+                'host' => 'mysqlbd',
+                'dbname' => 'entity_db',
                 'username' => 'root',
                 'password' => 'Hjvfirf55',
                 'charset' => 'utf8mb4',
@@ -30,7 +30,7 @@ return function (ContainerBuilder $containerBuilder) {
             ],
             'logger' => [
                 'name' => 'slim-app',
-                'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/logs/app.log',
+                'path' => isset($_ENV['docker']) ? 'php://stdout' : 'php://stdout',
                 'level' => Logger::DEBUG,
             ],
         ],

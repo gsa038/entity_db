@@ -12,16 +12,23 @@ interface EntityRepository
     public function __construct(PDO $connection);
 
     /**
-     * @param string $entityName
+     * @param string $name
      */
-    public function insertEntity(Entity $entity);
+    public function insertEntity(string $name);
 
     /**
-     * @param string $entityName
+     * @param string $name
      * @return Entity
      * @throws EntityNotFoundException
      */
-    public function findEntityWithName(string $entityName);
+    public function findEntityWithName(string $name): Entity;
+
+    /**
+     * @param int $id
+     * @return Entity
+     * @throws EntityNotFoundException
+     */
+    public function findEntityWithId(string $id): Entity;
 
     /**
      * @return Entity[]

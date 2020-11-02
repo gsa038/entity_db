@@ -5,7 +5,7 @@ namespace App\Domain\Tag;
 
 use JsonSerializable;
 
-class Tag
+class Rule extends JsonSerializable
 {
     private int $tagId;
 
@@ -15,11 +15,12 @@ class Tag
 
     private int $priority;
 
-    public function __construct(int $tagId, string $name, string $body)
+    public function __construct(int $tagId, string $name, string $body, int $priority)
     {
         $this->tagId = $tagId;
-        $this->name = strtolower($name);
-        $this->body = strtolower($body);
+        $this->name = $name;
+        $this->body = $body;
+        $this->priority = $priority;
     }
 
     public function getTagId(): int
@@ -27,17 +28,17 @@ class Tag
         return $this->tagId;
     }
 
-    public function getRuleName(): string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getRuleBody(): string
+    public function getBody(): string
     {
         return $this->body;
     }
 
-    public function getRulePriority(): int
+    public function getPriority(): int
     {
         return $this->priority;
     }
@@ -47,7 +48,8 @@ class Tag
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'value' => $this->value
+            'value' => $this->value,
+            'priority' => $this->priority
         ];
     }
 }

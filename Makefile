@@ -12,10 +12,11 @@ help:
 	@echo "Commands:"
 	@echo "  apidoc              Generate documentation of API"
 	@echo "  code-sniff          Check the API with PHP Code Sniffer (PSR2)"
-	@echo "  clean               Clean directories for reset"
+	@echo "  full-clean          Clean directories for reset"
+	@echo "  clean               Clean directories for reset except db backups"
 	@echo "  composer-up         Update PHP dependencies with composer"
 	@echo "  docker-start        Create and start containers"
-	@echo "  docker-stop         Stop and clear all services"
+	@echo "  docker-stop         Stop and clear all services except db backups"
 	@echo "  gen-certs           Generate SSL certificates"
 	@echo "  logs                Follow log output"
 	@echo "  mysql-dump          Create backup of all databases"
@@ -24,20 +25,23 @@ help:
 	@echo "  test                Test application"
 
 init:
-	@$(shell cp -n $(shell pwd)/web/entities-db-back/app/composer.json.dist $(shell pwd)/web/entities-db-back/app/composer.json 2> /dev/null)
+	@$(shell cp -n $(shell pwd)/web/composer.json.dist $(shell pwd)/web/composer.json 2> /dev/null)
 
 apidoc:
 	@docker run --rm -v $(shell pwd):/data phpdoc/phpdoc -i=vendor/ -d /data/web/app/src -t /data/web/app/doc
 	@make resetOwner
 
-clean:
+full-clean:
 	@rm -Rf data/db/mysql/*
 	@rm -Rf $(MYSQL_DUMPS_DIR)/*
+	@make clean
+
+clean:
 	@rm -Rf www
-	@rm -Rf web_back/vendor
-	@rm -Rf web_back/composer.lock
-	@rm -Rf web_back/doc
-	@rm -Rf web_back/report
+	@rm -Rf web/vendor
+	@rm -Rf web/composer.lock
+	@rm -Rf web/doc
+	@rm -Rf web/report
 	@rm -Rf logs/*
 	@rm -Rf etc/ssl/*
 
@@ -50,6 +54,8 @@ composer-up:
 
 docker-start: init
 	docker-compose up -d
+	sleep 90
+	@make mysql-restore
 
 docker-stop:
 	@docker-compose down -v
@@ -79,6 +85,6 @@ test: code-sniff
 	@make resetOwner
 
 resetOwner:
-	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd)/web/app" 2> /dev/null)
+	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd)/web" 2> /dev/null)
 
 .PHONY: clean test code-sniff init

@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Actions\Entity\ListEntitiesAction;
-use App\Application\Actions\Entity\ViewEntityAction;
+use App\Application\Actions\Entity\EntityCreateAction;
+use App\Application\Actions\Entity\ViewEntityByIdAction;
+use App\Application\Actions\Entity\ViewEntityByNameAction;
+use App\Application\Actions\User\ListUsersAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -15,23 +17,19 @@ return function (App $app) {
     });
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello entities!');
+        $response->getBody()->write('Hello world!');
         return $response;
     });
 
-    $app->get('/php-helper/Dfcbktr55', function (Request $request, Response $response) {
-        $response->getBody()->write(phpinfo());
-        return $response;
+    $app->group('/users', function (Group $group) {
+        $group->get('', ListUsersAction::class);
+        $group->get('/{id}', ViewUserAction::class);
     });
 
-    $app->group('/db-helper', function (Group $group) {
-        $group->get('/create/Dfcbktr55', DatabaseCreateAction::class);
-        $group->get('/fill-demo/Dfcbktr55', DatabaseFillDemoAction::class);
-        $group->get('/drop/Dfcbktr55', DatabaseDropAction::class);
+    $app->group('/entity', function (Group $group) {
+        $group->post('', EntityCreateAction::class);
+        $group->get('/id/{id}', ViewEntityByIdAction::class);
+        $group->get('/name/{name}', ViewEntityByNameAction::class);
     });
 
-    $app->group('/entities', function (Group $group) {
-        $group->get('', ListEntitiesAction::class);
-        $group->get('/{id}', ViewEntityAction::class);
-    });
 };

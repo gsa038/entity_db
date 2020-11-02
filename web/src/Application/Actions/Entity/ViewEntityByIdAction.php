@@ -5,17 +5,20 @@ namespace App\Application\Actions\Entity;
 
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ViewEntityAction extends EntityAction
+class ViewEntityByIdAction extends EntityAction
 {
     /**
      * {@inheritdoc}
      */
     protected function action(): Response
     {
-        $entityName = (string) $this->resolveArg('entityName');
-        $entity = $this->entityRepository->findEntityWithName($entityName);
+        $id = $this->request->getAttribute('id');
+        if (is_int($id)) {
 
-        $this->logger->info("Entity id with name `${entityName}` was returned.");
+        }
+        $entity = $this->entityRepository->findEntityWithId($id);
+
+        $this->logger->info("Entity with id $id was returned.");
 
         return $this->respondWithData($entity);
     }

@@ -5,7 +5,7 @@ namespace App\Domain\Tag;
 
 use JsonSerializable;
 
-class Tag
+class Tag implements JsonSerializable
 {
     private int $id;
 
